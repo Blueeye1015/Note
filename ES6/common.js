@@ -162,7 +162,37 @@
 }
 /*
 	13.函数的扩展
+	@ 函数参数的默认值:
+		* 定义了默认值的参数，必须是函数的尾部参数
+		* 参数传入null被赋值为null, 参数传入undefined传入则引用默认值
+		* (function()).length 返回没有指定默认值的参数的个数，不会包括rest参数
+		* 具有默认值的参数，在其作用域内不可被重新声明(let, const)
+	@ rest参数：用于获取函数的多余参数
+		* rest参数后不可以有其他参数
+	@ 扩展运算符：三个点... 将一个数组转为用逗号分隔的参数序列(可以很好地代替apply)
+	@ name属性 返回函数的属性名
 */
+{
+	function foo(x = 5, y = 6){ // 参数默认值
+		console.log(x,y);
+	}
+
+	function add(...values) { // rest参数
+		let sum = 0;
+
+		for (var val of values) {
+			sum += val;
+		}
+
+		return sum;
+	}
+
+	add(2, 5, 3) // 10
+
+	console.log(...[1, 2, 3]) // 1 2 3
+	console.log([..."hello"]) // [ "h", "e", "l", "l", "o" ]
+}
+
 // arrow function
 (x, y) => {
 	console.log('babel!');
