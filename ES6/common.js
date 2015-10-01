@@ -100,6 +100,69 @@
 	tag`Hello ${a + b} world ${a * b}`;
 }
 
+/*
+	9.二进制与八进制的表示: 0b, 0o
+*/
+
+/*
+	10.新增Number对象扩展
+	@ Number.isFinite() 判断是否是无穷数
+	@ Number.isNaN() 判断是否是NaN
+	@ Number.parseInt()
+	@ Number.parseFloat()
+	@ Number.isInteger() 是否是整数
+	@ Number.EPSILON = 2.220446049250313e-16 一个极小的数值，用来检查误差
+	@ Number.MAX_SAFE_INTEGER 2^53
+	@ Number.MIN_SAFE_INTEGER -2^53
+	@ Number.isSafeInteger() 是否在安全整数范围内
+*/
+
+/*
+	11.新增Math对象常用扩展
+	@ Math.trunc() 去除一个数的小数部分
+	@ Math.sign() 正数返回+1, 负数返回-1, ±0返回±0, 其他值返回NaN
+	@ Math.cbrt() 计算立方根
+	@ Math.clz32() 返回一个数的32位无符号整数形式有多少个前导0(二进制)
+	@ Math.imul() 返回两个数以32位带符号整数形式相乘的结果
+	@ Math.fround() 返回一个数的单精度浮点数形式
+	@ Math.hypot() 返回所有参数的平方和的平方根
+	@ ES7指数运算符 **
+*/
+
+/*
+	12.数组的扩展
+	@ Array.from() 将类数组(可遍历)对象转换成真正的数组，可接受第二个参数来处理值
+	@ Array.of() 将一组值，转换为数组
+	@ Array.prototype.copyWithin(target, start = 0, end = this.length)
+	@ Array.prototype.find() 参数是一个回调函数，
+							 所有数组成员依次执行该回调函数,
+							 直到找出第一个返回值为true的成员，然后返回该成员。
+							 如果没有符合条件的成员，则返回undefined
+	@ Array.prototype.findIndex() 如果没有符合条件的成员，则返回-1
+	@ Array.fill() 填充一个数组
+	@ Array.keys() 返回一个遍历器对象
+	@ Array.values() 同上
+	@ Array.entries() 同上
+	@ Array.includes() 返回一个布尔值，表示某个数组是否包含给定的值(ES7方法)
+					   与indexOf相比，返回布尔值更为直观、其次可以对NaN进行准确的判断
+*/
+{
+	let namesSet = new Set(['a', 'b'])
+	Array.from(namesSet) // ['a', 'b']
+	Array.from([1, 2, 3], (x) => x * x) // [1, 4, 9]
+
+	Array.of(3, 11, 8) // [3,11,8]
+
+	[1, 4, -5, 10].find((n) => n < 0) // -5
+	['a', 'b', 'c'].fill(7) // [7, 7, 7]
+
+	for (let index of ['a', 'b'].keys()) {
+		console.log(index); // 0 1
+	}
+}
+/*
+	13.函数的扩展
+*/
 // arrow function
 (x, y) => {
 	console.log('babel!');
