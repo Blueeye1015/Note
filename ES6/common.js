@@ -171,6 +171,13 @@
 		* rest参数后不可以有其他参数
 	@ 扩展运算符：三个点... 将一个数组转为用逗号分隔的参数序列(可以很好地代替apply)
 	@ name属性 返回函数的属性名
+	@ 箭头函数
+		* 函数内this对象，绑定定义时所在的对象(固定的this对象)
+		* 不可以当作构造函数(不可以new)
+		* 不能使用arguments对象，要使用rest参数
+		* 不可以使用yield命令
+	@ 函数绑定(ES7)
+	@ 尾调用优化、尾递归
 */
 {
 	function foo(x = 5, y = 6){ // 参数默认值
@@ -191,14 +198,93 @@
 
 	console.log(...[1, 2, 3]) // 1 2 3
 	console.log([..."hello"]) // [ "h", "e", "l", "l", "o" ]
-}
 
-// arrow function
-(x, y) => {
-	console.log('babel!');
-	return(x, y);
-}
+	(x, y) => {
+		console.log('babel!');
+		return(x, y);
+	}
 
-function f( x, y ) {
-	return { x, y };
+	foo::bar; // bar.call(foo);
+}
+/*
+	14.对象的扩展
+	@ 直接写入变量和函数，作为对象的属性和方法
+	@ 允许字面量定义对象时，用表达式作为对象的属性名
+	@ Object.is() 用来判断两个值是否严格相等，与===基本一致(区别：NaN等于自身，+0不等于-0)
+	@ Object.assign(target, source) 将源对象（source）的所有可枚举属性，复制到目标对象（target）
+	  如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+		* 为对象添加属性
+		* 为对象添加方法
+		* 克隆对象
+		* 合并多个对象
+		* 为属性指定默认值
+	@ Object.setPrototypeOf()
+	@ Object.getPrototypeOf()
+	@ Object.observe() 监听对象的变化,目前支持6种变化
+		* 添加属性
+		* 属性值的变化
+		* 删除属性
+		* 设置原型setPrototypeOf
+		* 属性的attributes对象发生变化
+		* 对象被禁止扩展
+	@ Object.unobserve()
+*/
+{
+	var o = {
+		method() {
+			return "Hello!";
+		}
+	};
+
+	var a = {
+		'first word': 'hello',
+		[lastWord]: 'world'
+	};
+}
+/*
+	15.Symbol => 新的数据类型
+	@ 用Symbol值作为对象的key，不会被常规方法遍历得到。可以作用于一些非私有，但只希望用于内部的方法
+	@ Symbol值生成方式：let s = Symbol();
+	@ 相同参数的Symbol函数的返回值是不相等的,切不能与其它类型的值进行运算
+	@ Symbol可以作为属性名，能保证不会出现同名的属性(Symbol值作为对象属性名时，不能用点运算符)
+	@ Object.getOwnPropertySymbols(obj) 返回一个包含所有Symbol属性名的数组(其他方式取不到Symbol属性名)
+	@ Reflect.ownKeys(obj) 返回所有常规属性名和Symbol属性名的数组
+	@ Symbol.for() 重新使用同一个Symbol值
+	@ Symbol.keyFor() 获取 symbol 注册表中与某个 symbol 关联的键
+*/
+{
+	var s1 = Symbol('foo');
+
+	a[s1] = 'Hello!';
+
+	let obj = {
+		[s1](arg) {
+			console.log(arg);
+		}
+	};
+
+	var objectSymbols = Object.getOwnPropertySymbols(obj); // [Symbol(foo)]
+
+	var globalSym = Symbol.for("foo");
+	Symbol.keyFor(globalSym); // "foo"
+
+	obj[s1](123);
+}
+/*
+	16.Proxy & Reflect
+*/
+{
+
+}
+/*
+	17.二进制数组
+*/
+{
+
+}
+/*
+	18.Set & Map
+*/
+{
+
 }
