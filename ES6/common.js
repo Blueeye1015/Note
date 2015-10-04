@@ -284,7 +284,69 @@
 }
 /*
 	18.Set & Map
+	@ Set类似于数组，但是成员的值都是唯一的 Set()本身是一个构造函数
+		* Set.prototype.constructor() 默认就是Set函数
+		* Set.prototype.size() 返回Set实例的成员总数
+		* Set.add() 添加某个值，返回Set结构本身
+		* Set.delete() 删除某个值，返回一个布尔值，表示删除是否成功
+		* Set.has() 返回一个布尔值，表示该值是否为Set的成员
+		* Set.clear() 清除所有成员，没有返回值
+		* Set.keys() 返回一个键名的遍历器
+		* Set.values() 返回一个键值的遍历器
+		* Set.entries() 返回一个键值对的遍历器
+		* Set.forEach() 使用回调函数遍历每个成员，没有返回值(类似于map)
+	@ WeakSet与Set的区别
+		* WeakSet的成员只能是对象，而不能是其他类型的值。
+		* WeakSet中的对象都是弱引用，WeakSet是不可遍历的(没有size()和forEach()方法)
+		* WeakSet.prototype.add() 向WeakSet实例添加一个新成员。
+		* WeakSet.prototype.delete() 清除WeakSet实例的指定成员。
+		* WeakSet.prototype.has() 返回一个布尔值，表示某个值是否在WeakSet实例之中。
+	@ Map提供类似于“值—值”的对应
+		* Map大部分成员方法与Set类似
+		* Map也可以接受一个数组作为参数，数组的成员是一个个表示键值对的数组。
+	@ WeakMap与Map唯一的区别是它只接受对象作为键名
 */
 {
+	var s = new Set();
+	var set = new Set([1, 2, 3, 4, 4]) // [...set] = [1, 2, 3, 4]
 
+	[2,3,5,4,5,2,2].map(x => s.add(x)) // 2 3 5 4
+
+	// 数组元素去重
+	let arr = [3, 5, 2, 2, 5, 5];
+	let unique = [...new Set(arr)]; // [3, 5, 2]
+	set = new Set([...set].map(x => x * 2)); // 将数组的方法作用于Set
+
+	var map = new Map([["name", "张三"], ["title", "Author"]]);
+
+	// WeakMap的使用例子，记录DOM节点点击状态
+	// 一旦DOM节点删除，对应状态就会自动消失，不存在内存泄漏风险
+	let myElement = document.getElementById('logo');
+	let myWeakmap = new WeakMap();
+
+	myWeakmap.set(myElement, {timesClicked: 0});
+
+	myElement.addEventListener('click', function() {
+		let logoData = myWeakmap.get(myElement);
+		logoData.timesClicked++;
+		myWeakmap.set(myElement, logoData);
+	}, false);
+}
+/*
+	19.Iterator & for...of
+	@ Iterator主要就是为了给for...of使用
+	@ Array, Set, Map, 字符串都具有原生的Iterator接口
+*/
+{
+	let set = new Set().add('a').add('b').add('c');
+
+	let [x,y] = set; // x='a'; y='b'
+
+	let [first, ...rest] = set; // first='a'; rest=['b','c'];
+
+	const arr = ['red', 'green', 'blue'];
+
+	for(let v of iterator) {
+		console.log(v); // red green blue
+	}
 }
